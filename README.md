@@ -11,8 +11,13 @@ python -m pip install wbgapi --> nel terminale: ci serve la libreria wbgabi dove
 importi la libreria nel codice data_loader
 come leggo i dati?
 la libreria wbgabi è costruita attraverso i dati della World Bank Open Data: Free and open access to global development data
-libreria con vari dataset... come ci accedo? guarda il link del testo del progetto per capire
-.............
+libreria con vari dataset... come ci accedo? 
+bisogna decidere quali paesi e quali indicatori voglio perchè se no sono troppi e i paesi più piccoli potrebbero non avere tutti i dati disponibili.
+Non utilizzo quindi tutti i paesi disponibili ma ne scelgo 11 diversi per livello di sviluppo economico, distribuiti in più aree geografiche e rappresentativi di modelli econdomici e sociali differenti:
+-Europa: Italia, Spagna, Germania, Svezia
+-Nord America: Stati uniti, Canada
+-Sud America: Brasile, Cile
+-Asia: Sudafica, Nigeria
 
 prendo in analisi i dati dal 2000 al 2023 perchè i dati del 2024/2025 non sono completi 
 indicatori scaricati per le analisi:
@@ -22,6 +27,7 @@ indicatori scaricati per le analisi:
 -'Health expenditure': 'SH.XPD.CHEX.PC.CD' --> spesa sanitaria per persona
 -'Infant mortality': 'SH.DYN.MORT' --> tasso di mortalità infantile per 1000 nati vivi 
 -'Education': 'SE.ADT.LITR.ZS' --> percentuale di adulti alfabetizzati 
+-'Unemployment': 'SL.UEM.TOTL.ZS' --> percentuale forza lavoro disoccupata
 -'Population growth': 'SP.POP.GROW' --> percentuale di crescita annuale 
 
 Analisi da svolgere:
