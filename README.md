@@ -36,6 +36,11 @@ purtroppo non posso caricare in un unico dataset tutti i dati di tutti gli indic
 Facedo partire il codice data_loader si creano 7 file csv per i 7 indicatori con all'interno i dati dei 10 paesi e dei 30 anni considerati.
 I file sono composti dagli anni come righe e dai paesi come colonne, e ovviamente i dati all'interno indicano il dato di quel determinato indicatore in quell'anno e in quel paese.
 
+Prima di passare alle analisi vere e proprie faccio partire il codice preprocessing con al suo interno analisi generali dei singoli dataset e il preprocesso per organizzare i dati in modo che possano essere utilizzati per le analisi successive.
+Con questo processo notiamo che:
+-Il dataset 'Life expectacy' ha 1 riga con valori mancanti: non ci sono valori per il 2024 quindi elimino questo anno in questo dataset
+-Il dataset 'Health expenditure' ha 7 righe con all'interno valori mancanti: non ci sono i valori dal 1995 al 1999 e del 2024, invece i valori del 2023 ci sono solo per alcuni paesi (5 su 10). Le 6 righe senza dati le elimino, invece per il 2023 capisco se ha senso tenerlo.
+
 Analisi da svolgere:
 obiettivo --> relazione tra ricchezza economica e benessere sociale --> storia della salute e dell'economia globali
 tendenze e correlazioni dello sviluppo globale --> tutti i paesi --> modelli di sviluppo delle nazioni 
