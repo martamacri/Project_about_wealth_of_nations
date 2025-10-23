@@ -39,7 +39,9 @@ I file sono composti dagli anni come righe e dai paesi come colonne, e ovviament
 Prima di passare alle analisi vere e proprie faccio partire il codice preprocessing con al suo interno analisi generali dei singoli dataset e il preprocesso per organizzare i dati in modo che possano essere utilizzati per le analisi successive.
 Con questo processo notiamo che:
 -Il dataset 'Life expectacy' ha 1 riga con valori mancanti: non ci sono valori per il 2024 quindi elimino questo anno in questo dataset
--Il dataset 'Health expenditure' ha 7 righe con all'interno valori mancanti: non ci sono i valori dal 1995 al 1999 e del 2024, invece i valori del 2023 ci sono solo per alcuni paesi (5 su 10). Le 6 righe senza dati le elimino, invece per il 2023 capisco se ha senso tenerlo.
+-Il dataset 'Health expenditure' ha 7 righe con all'interno valori mancanti: non ci sono i valori dal 1995 al 1999 e del 2024, invece i valori del 2023 ci sono solo per alcuni paesi (5 su 10). Le 6 righe senza dati le elimino, invece per il 2023 capisco se ha senso tenerlo. Alla fine elimino anche il 2023 perchè per le analisi che andrò a svolgere non ha senso tentare un imputazione.
+-Il dataset 'Infant mortality' ha 1 riga con valori mancanti: non ci sono valori per il 2024 quindi elimino questo anno in questo dataset
+Quindi ho sistemato i 3 dataset con valori nulli per le analisi future.
 
 Analisi da svolgere:
 obiettivo --> relazione tra ricchezza economica e benessere sociale --> storia della salute e dell'economia globali
