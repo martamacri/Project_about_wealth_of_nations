@@ -46,11 +46,45 @@ Quindi ho sistemato i 3 dataset con valori nulli per le analisi future.
 Analisi da svolgere:
 obiettivo --> relazione tra ricchezza economica e benessere sociale --> storia della salute e dell'economia globali
 tendenze e correlazioni dello sviluppo globale --> tutti i paesi --> modelli di sviluppo delle nazioni 
-Esempi:
--Pil pro capite vs aspettativa di vita --> pil alto = aspettativa di vita più lunga? cambia nel tempo questa correlazione? (prendi un paese con il pil alto, uno medio e uno basso e fai serie temporale)
--Mappa modiale che rappresenta il pil generale
--Mappa modiale che rappresenta l'aspettativa di vita
--Spesa sanitaria pro capite vs mortalità infantile --> più è alta, meno bambini muoiono?
+ANALISI DI CORRELAZIONE + TREND TEMPORALI + CONFRONTI GEOGRAFICI
+
+## Data analysis socio-economica
+
+Analisi:
+-Eda generale: medie, varianze e evoluzione di ogni marcatore con grafici
+
+-Pil pro capite nel tempo
+-Aspettativa di vita nel tempo
+-Disoccupazione nel tempo
+-Mortalità infantile nel tempo
+-confronto pre e post crisi economica del 2008: pil pro capite medio (2000-2007 vs 2009-2019 così lasci perdere il covid) + aspettativa di vita, disoccupazione, mortalità infantile 
+
+-Pil pro capite vs aspettativa di vita --> pil alto = aspettativa di vita più lunga? cambia nel tempo questa correlazione? (prendi un paese con il pil alto, uno medio e uno basso e fai serie temporale) --> correlazione di pearson
+-Disoccupazione vs aspettativa di vita
 -Pil pro capite vs spesa sanitaria pro capite
 -Pil pro capite vs tassi di mortalità infantile 
-(-cluster analisis: raggruppa i paesi in base ai loro indicatori economici e sanitari e vedi se i gruppi sono paragonabili a quelli che 'si conoscono già')
+-Spesa sanitaria pro capite vs mortalità infantile --> più è alta, meno bambini muoiono?
+
++
+-cluster analisis: raggruppa i paesi in base ai loro indicatori economici e sanitari e vedi se i gruppi sono paragonabili a quelli che 'si conoscono già' che potrebbero non essere uguali a quelli territoriali
+-regressione lineare --> Life_expectancy ~ GDP_per_capita + Health_expenditure + Infant_mortality --> scatter plot della regressione
+-creare un indice sintetico di benessere che riassume tutti gli indici di benessere (aspettativa di vita, spesa sanitaria, mortalità infantile 
+
+Visualizzazioni globali: --> si possono animare per vedere l'evoluzione?
+-grafici vari indicatore per indicatore --> andamento nel tempo dei vari indicatori (linee per paese e media per continente) --> grafico a barre orizzontali
+-Mappa modiale che rappresenta la crescita annuale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
+-Mappa modiale che rappresenta il pil generale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
+-Mappa modiale che rappresenta l'aspettativa di vita + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
+-analisi multidimensionale: bubble chart x=pil pro capite, y=aspettativa di vita, dimension=numero di persone, colore= continente, animazione nel tempo
+-linee di divergenza --> differenza di un indicatore tra due anni per ogni paese (1995 vs 2015)
+
++
+Nuovo documento di codice:
+puoi fare delle analisi singole per paese: esempio Italia
+-crei dataset Italia
+-trend temporali per ogni indicatore
+-matrice di correlazione tra tutti gli indicatori facendo la media di tutti gli anni per ogni indicatore
+-effetti crisi economica 2008
+-effetti pandemia
+-indice unico di benessere
+-Grafici line plot, scatter e heatmap
