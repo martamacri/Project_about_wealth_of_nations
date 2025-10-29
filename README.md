@@ -19,7 +19,7 @@ Non utilizzo quindi tutti i paesi disponibili ma ne scelgo 10 diversi per livell
 -Europa: Italia (ITA), Spagna (ESP), Germania (DEU), Svezia (SWE)
 -Nord America: Stati uniti (USA), Canada (CAN)
 -Sud America: Brasile (BRA), Cile (CHL)
--Asia: Sudafica (ZAF), Nigeria (NGA)
+-Africa: Sudafica (ZAF), Nigeria (NGA)
 
 prendo in analisi i dati dal 1995 al 2024 perchè i dati dei 2025 non sono ancora stati caricati. Ho un arco temporale di 30 anni che mi fa capire come sono cambiati gli indicatori scelti negli anni.
 
@@ -51,12 +51,12 @@ ANALISI DI CORRELAZIONE + TREND TEMPORALI + CONFRONTI GEOGRAFICI
 ## Data analysis socio-economica
 
 Analisi:
--Eda generale: medie, varianze e evoluzione di ogni marcatore con grafici
+-Analisi generali: describe nel preprocesso (media, varianza, ...) OK
 
--Pil pro capite nel tempo
--Aspettativa di vita nel tempo
--Disoccupazione nel tempo
--Mortalità infantile nel tempo
+-Pil pro capite nel tempo OK
+-Aspettativa di vita nel tempo OK
+-Disoccupazione nel tempo OK
+-Mortalità infantile nel tempo OK
 -confronto pre e post crisi economica del 2008: pil pro capite medio (2000-2007 vs 2009-2019 così lasci perdere il covid) + aspettativa di vita, disoccupazione, mortalità infantile 
 
 -Pil pro capite vs aspettativa di vita --> pil alto = aspettativa di vita più lunga? cambia nel tempo questa correlazione? (prendi un paese con il pil alto, uno medio e uno basso e fai serie temporale) --> correlazione di pearson
@@ -71,7 +71,7 @@ Analisi:
 -creare un indice sintetico di benessere che riassume tutti gli indici di benessere (aspettativa di vita, spesa sanitaria, mortalità infantile 
 
 Visualizzazioni globali: --> si possono animare per vedere l'evoluzione?
--grafici vari indicatore per indicatore --> andamento nel tempo dei vari indicatori (linee per paese e media per continente) --> grafico a barre orizzontali
+-grafici vari indicatore per indicatore --> andamento nel tempo dei vari indicatori (linee per paese OK e media per continente ) --> grafico a barre orizzontali
 -Mappa modiale che rappresenta la crescita annuale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
 -Mappa modiale che rappresenta il pil generale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
 -Mappa modiale che rappresenta l'aspettativa di vita + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
