@@ -59,11 +59,13 @@ Analisi:
 -Mortalità infantile nel tempo OK
 -confronto pre e post crisi economica del 2008: pil pro capite medio (2000-2007 vs 2009-2019 così lasci perdere il covid) + aspettativa di vita, disoccupazione, mortalità infantile OK
 
--Pil pro capite vs aspettativa di vita --> pil alto = aspettativa di vita più lunga? cambia nel tempo questa correlazione? (prendi un paese con il pil alto, uno medio e uno basso e fai serie temporale) --> correlazione di pearson
--Disoccupazione vs aspettativa di vita
--Pil pro capite vs spesa sanitaria pro capite
--Pil pro capite vs tassi di mortalità infantile 
--Spesa sanitaria pro capite vs mortalità infantile --> più è alta, meno bambini muoiono?
+-Pil pro capite vs aspettativa di vita --> pil alto = aspettativa di vita più lunga? --> correlazione di pearson OK
+-Disoccupazione vs aspettativa di vita OK
+-Pil pro capite vs spesa sanitaria pro capite OK
+-Pil pro capite vs tassi di mortalità infantile OK
+-Spesa sanitaria pro capite vs mortalità infantile --> più è alta, meno bambini muoiono? OK
+
+-cambia nel tempo questa correlazione? (prendi un paese con il pil alto, uno medio e uno basso e fai serie temporale)
 
 +
 -cluster analisis: raggruppa i paesi in base ai loro indicatori economici e sanitari e vedi se i gruppi sono paragonabili a quelli che 'si conoscono già' che potrebbero non essere uguali a quelli territoriali
