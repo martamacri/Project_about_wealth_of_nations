@@ -64,3 +64,43 @@ print("\nUnemployment:")
 print(unemployment_mean)
 print("\nInfant mortality:")
 print(infant_mortality_mean)
+
+# correlazioni per ogni paese
+def prepare_df(df):
+    df = df.dropna(how='all')
+    Years = df.iloc[:, 0].astype(str).str.extract(r'(\d+)')[0].astype(int)
+    df_data = df.iloc[:, 1:]
+    df_data.index = Years
+    return df_data
+pil = prepare_df(df1)
+life = prepare_df(df3)
+health = prepare_df(df4)
+unemp = prepare_df(df6)
+infant_mort = prepare_df(df5)
+comparisons = [
+    ('GDP per capita', pil, 'Life expectancy', life),
+    ('Unemployment', unemp, 'Life expectancy', life),
+    ('GDP per capita', pil, 'Health expenditure', health),
+    ('GDP per capita', pil, 'Infant mortality', infant_mort),
+    ('Health expenditure', health, 'Infant mortality', infant_mort)
+]
+results = []
+for name_x, df_x, name_y, df_y in comparisons:
+    countries = df_x.columns.intersection(df_y.columns)
+    common_years = df_x.index.intersection(df_y.index)
+    for country in countries:
+        x_vals = df_x.loc[common_years, country]
+        y_vals = df_y.loc[common_years, country]
+        valid_idx = x_vals.notna() & y_vals.notna()
+        if valid_idx.sum() > 1:
+            corr = x_vals[valid_idx].corr(y_vals[valid_idx])
+        else:
+            corr = None
+        results.append({
+            'Country': country,
+            'X': name_x,
+            'Y': name_y,
+            'Pearson correlation': corr
+        })
+corr_df = pd.DataFrame(results)
+print(corr_df)
