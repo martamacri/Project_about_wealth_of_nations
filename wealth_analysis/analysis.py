@@ -104,3 +104,26 @@ for name_x, df_x, name_y, df_y in comparisons:
         })
 corr_df = pd.DataFrame(results)
 print(corr_df)
+
+# La correlazione tra il pil pro capite e l'aspettativa di vita cambia nel tempo? per ogni paese (serie temporale)
+window = 15
+countries = pil.columns  
+common_years = pil.index.intersection(life.index)  
+rolling_corr = pd.DataFrame(index=common_years)
+for country in countries:
+    x = pil.loc[common_years, country]
+    y = life.loc[common_years, country]
+    corr = (
+        x.rolling(window=window, min_periods=3)
+         .corr(y)
+    )
+    rolling_corr[country] = corr
+plt.figure(figsize=(14, 8))
+for country in rolling_corr.columns:
+    plt.plot(rolling_corr.index, rolling_corr[country], label=country)
+plt.title(f"Mobile correlation ({window} years) between GDP per capita and life expectancy")
+plt.xlabel("Year")
+plt.ylabel("Pearson's correlation")
+plt.legend()
+plt.grid(True)
+plt.show()
