@@ -65,15 +65,16 @@ Analisi:
 -Pil pro capite vs tassi di mortalità infantile OK
 -Spesa sanitaria pro capite vs mortalità infantile --> più è alta, meno bambini muoiono? OK
 
--cambia nel tempo questa correlazione? (prendi un paese con il pil alto, uno medio e uno basso e fai serie temporale)
+-cambia nel tempo questa correlazione? (serie temporale dei paesi) OK
 
 +
+-regressione lineare --> Life_expectancy ~ GDP_per_capita + Health_expenditure + Infant_mortality --> scatter plot della regressione OK
+-creare un indice sintetico di benessere che riassume tutti gli indici di benessere (aspettativa di vita, spesa sanitaria, mortalità infantile OK
 -cluster analisis: raggruppa i paesi in base ai loro indicatori economici e sanitari e vedi se i gruppi sono paragonabili a quelli che 'si conoscono già' che potrebbero non essere uguali a quelli territoriali
--regressione lineare --> Life_expectancy ~ GDP_per_capita + Health_expenditure + Infant_mortality --> scatter plot della regressione
--creare un indice sintetico di benessere che riassume tutti gli indici di benessere (aspettativa di vita, spesa sanitaria, mortalità infantile 
 
 Visualizzazioni globali: --> si possono animare per vedere l'evoluzione?
 -grafici vari indicatore per indicatore --> andamento nel tempo dei vari indicatori (linee per paese e media per continente) --> grafico linee OK
+-correlazione tra il pil pro capite e l'aspettativa di vita cambia nel tempo? per ogni paese (serie temporale) OK
 -Mappa modiale che rappresenta la crescita annuale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
 -Mappa modiale che rappresenta il pil generale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
 -Mappa modiale che rappresenta l'aspettativa di vita + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
