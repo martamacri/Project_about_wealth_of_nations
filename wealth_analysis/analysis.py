@@ -2,6 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import statsmodels.api as sm
 
 df1 = pd.read_csv('data/gdp_per_capita_1995_2024.csv')
 df2 = pd.read_csv('data/gdp_1995_2024.csv')
@@ -125,5 +126,29 @@ plt.title(f"Mobile correlation ({window} years) between GDP per capita and life 
 plt.xlabel("Year")
 plt.ylabel("Pearson's correlation")
 plt.legend()
+plt.grid(True)
+plt.show()
+
+# regressione lineare --> Life_expectancy ~ GDP_per_capita + Health_expenditure + Infant_mortality
+common_years = pil.index.intersection(life.index).intersection(health.index).intersection(infant_mort.index)
+data = pd.DataFrame({
+    'Country': [c for c in countries for _ in common_years],
+    'Year': list(common_years) * len(countries),
+    'GDP_per_capita': pd.concat([pil.loc[common_years, c] for c in countries], ignore_index=True),
+    'Health_expenditure': pd.concat([health.loc[common_years, c] for c in countries], ignore_index=True),
+    'Infant_mortality': pd.concat([infant_mort.loc[common_years, c] for c in countries], ignore_index=True),
+    'Life_expectancy': pd.concat([life.loc[common_years, c] for c in countries], ignore_index=True),
+})
+X = data[['GDP_per_capita', 'Health_expenditure', 'Infant_mortality']]
+y = data['Life_expectancy']
+X = sm.add_constant(X) 
+model = sm.OLS(y, X).fit()
+print(model.summary()) #coefficient 
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='GDP_per_capita', y='Life_expectancy', data=data, hue='Country', alpha=0.7)
+sns.regplot(x='GDP_per_capita', y='Life_expectancy', data=data, scatter=False, color='black')
+plt.title('Relationship between GDP per capita and life expectancy')
+plt.xlabel('GDP per capita')
+plt.ylabel('Life expectancy')
 plt.grid(True)
 plt.show()
