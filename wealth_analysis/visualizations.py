@@ -69,3 +69,34 @@ plot_by_continent(df4, 'Evolution of health expenditure over time by continent')
 plot_by_continent(df5, 'Evolution of infant mortality over time by continent')
 plot_by_continent(df6, 'Evolution of unemployment over time by continent')
 plot_by_continent(df7, 'Evolution of population growth over time by continent')
+
+# La correlazione tra il pil pro capite e l'aspettativa di vita cambia nel tempo? per ogni paese (serie temporale)
+def prepare_df(df):
+    df = df.dropna(how='all')
+    Years = df.iloc[:, 0].astype(str).str.extract(r'(\d+)')[0].astype(int)
+    df_data = df.iloc[:, 1:]
+    df_data.index = Years
+    return df_data
+pil = prepare_df(df1)
+life = prepare_df(df3)
+window = 15
+countries = pil.columns  
+common_years = pil.index.intersection(life.index)  
+rolling_corr = pd.DataFrame(index=common_years)
+for country in countries:
+    x = pil.loc[common_years, country]
+    y = life.loc[common_years, country]
+    corr = (
+        x.rolling(window=window, min_periods=3)
+         .corr(y)
+    )
+    rolling_corr[country] = corr
+plt.figure(figsize=(14, 8))
+for country in rolling_corr.columns:
+    plt.plot(rolling_corr.index, rolling_corr[country], label=country)
+plt.title(f"Mobile correlation ({window} years) between GDP per capita and life expectancy")
+plt.xlabel("Year")
+plt.ylabel("Pearson's correlation")
+plt.legend()
+plt.grid(True)
+plt.show()
