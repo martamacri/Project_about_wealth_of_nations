@@ -152,3 +152,37 @@ plt.xlabel('GDP per capita')
 plt.ylabel('Life expectancy')
 plt.grid(True)
 plt.show()
+
+#indice sintetico di benessere che riassume tutti gli indici di benessere (aspettativa di vita, spesa sanitaria, mortalità infantile)
+#normalizzo i dati che devono avere tutti lo stesso ordine
+infant_inv = infant_mort.max().max() - infant_mort
+def minmax_normalize(df):
+    return (df - df.min()) / (df.max() - df.min())
+life_norm = minmax_normalize(life)
+health_norm = minmax_normalize(health)
+infant_norm = minmax_normalize(infant_inv)
+#evoluzione nel tempo
+wellbeing_index = (life_norm + health_norm + infant_norm) / 3
+wellbeing_index.mean(axis=1).plot(figsize=(12,6))
+plt.title("Summary index of average well-being over time")
+plt.xlabel("Year")
+plt.ylabel("Well-being index")
+plt.show()
+#classifica dei paesi per indice medio
+mean_wellbeing = wellbeing_index.mean(axis=0)
+rank = mean_wellbeing.sort_values(ascending=False)
+print(rank)
+#pil vs benessere
+common_years = wellbeing_index.index.intersection(pil.index)
+gdp_mean = pil.loc[common_years].mean()
+plt.figure(figsize=(10,6))
+plt.scatter(gdp_mean, mean_wellbeing)
+for country in countries:
+    plt.text(gdp_mean[country], mean_wellbeing[country], country, fontsize=8)
+plt.xlabel("Average GDP per capita")
+plt.ylabel("Average well-being index")
+plt.title("Relationship between GDP per capita and well-being index")
+plt.grid(True)
+plt.show()
+corr = gdp_mean.corr(mean_wellbeing)
+print(f"Pearson correlation between average GDP per capita and well-being index: {corr:.3f}")
