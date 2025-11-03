@@ -3,6 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score, adjusted_rand_score, normalized_mutual_info_score
+import warnings
+warnings.filterwarnings("ignore")
 
 df1 = pd.read_csv('data/gdp_per_capita_1995_2024.csv')
 df2 = pd.read_csv('data/gdp_1995_2024.csv')
@@ -186,3 +193,122 @@ plt.grid(True)
 plt.show()
 corr = gdp_mean.corr(mean_wellbeing)
 print(f"Pearson correlation between average GDP per capita and well-being index: {corr:.3f}")
+
+#Cluster analisis
+dfs = {
+    'GDP_per_capita': df1,
+    'GDP': df2,
+    'Life_expectancy': df3,
+    'Health_expenditure': df4,
+    'Infant_mortality': df5,
+    'Unemployment': df6,
+    'Population_growth': df7
+}
+countries = ['ITA', 'ESP', 'DEU', 'SWE', 'USA', 'CAN', 'BRA', 'CHL', 'ZAF', 'NGA']
+def build_feature_table(dfs_dict, countries, method='latest'): #tabella finale
+    features = pd.DataFrame(index=countries)
+    for feat_name, df in dfs_dict.items():
+        df0 = prepare_df(df)  # <-- qui usiamo la tua funzione
+        if method == 'latest':
+            try:
+                row = df0.loc[df0.index.max()]
+            except Exception:
+                row = df0.iloc[-1]
+            values = row.reindex(countries)
+        else:  # 'mean' su tutti gli anni
+            values = df0.reindex(columns=countries).mean(axis=0)
+        features[feat_name] = values
+    return features
+def cluster_countries(dfs_dict, countries, method='latest', k_min=2, k_max=6, random_state=42, plot=True):
+    # 1) build features
+    feats = build_feature_table(dfs_dict, countries, method=method)
+    # 2) mantieni copia originale (non scaled) per output numerico
+    feats_orig = feats.copy()
+    # 3) imputazione
+    imputer = SimpleImputer(strategy='median')
+    X_imputed = imputer.fit_transform(feats)
+    # 4) scaling
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X_imputed)
+    # 5) scegliere k con silhouette
+    best_k = None
+    best_score = -1
+    best_kmeans = None
+    for k in range(k_min, min(k_max, len(countries)-1) + 1):
+        km = KMeans(n_clusters=k, random_state=random_state, n_init=20)
+        labels = km.fit_predict(X_scaled)
+        # silhouette richiede almeno 2 cluster e < n_samples clusters
+        try:
+            score = silhouette_score(X_scaled, labels)
+        except Exception:
+            score = -1
+        # scegli il migliore
+        if score > best_score:
+            best_score = score
+            best_k = k
+            best_kmeans = km
+    labels = best_kmeans.labels_
+    # 6) PCA per visualizzazione 2D
+    pca = PCA(n_components=2, random_state=random_state)
+    X_pca = pca.fit_transform(X_scaled)
+    # 7) prepara output numerico
+    result_table = pd.DataFrame({
+        'country': countries,
+        'cluster': labels
+    }).set_index('country')
+    # aggiungi le features originali
+    result_table = pd.concat([result_table, feats_orig], axis=1)
+    # centroidi in spazio originale (inversa scaling + imputazione è approssimativa)
+    centroids_scaled = best_kmeans.cluster_centers_
+    centroids_orig = scaler.inverse_transform(centroids_scaled)
+    # creiamo DataFrame centroidi con colonne features
+    centroids_df = pd.DataFrame(centroids_orig, columns=feats.columns)
+    centroids_df.index.name = 'cluster'
+    # 8) stampa sommario
+    print("=== Cluster summary ===")
+    print(f"Metodo feature: {method}")
+    print(f"Numero paesi considerati: {len(countries)}")
+    print(f"Cluster scelto (silhouette): k = {best_k}, silhouette = {best_score:.4f}")
+    print("\nDimensione per cluster:")
+    print(result_table['cluster'].value_counts().sort_index())
+    print("\nCluster assignments (prima righe):")
+    print(result_table.sort_values('cluster').head(20))
+    print("\nCentroidi (valori approssimati nello spazio delle feature originali):")
+    print(centroids_df)
+    # 9) plot
+    if plot:
+        plt.figure(figsize=(9,6))
+        sc = plt.scatter(X_pca[:,0], X_pca[:,1], c=labels, cmap='tab10', s=120, edgecolor='k')
+        for i, country in enumerate(countries):
+            plt.text(X_pca[i,0]+0.02, X_pca[i,1]+0.02, country, fontsize=10)
+        plt.title(f'Clustering paesi (PCA 2D) - k={best_k} silhouette={best_score:.3f}')
+        plt.xlabel('PCA 1')
+        plt.ylabel('PCA 2')
+        plt.grid(alpha=0.2)
+        # legenda: numero cluster
+        handles, _ = sc.legend_elements()
+        plt.legend(handles, [f'cluster {i}' for i in range(best_k)], title='Cluster', loc='best')
+        plt.tight_layout()
+        plt.show()
+    # ritorna oggetti utili
+    return {
+        'features_original': feats_orig,
+        'features_imputed_scaled': X_scaled,
+        'pca_2d': X_pca,
+        'kmeans': best_kmeans,
+        'labels': labels,
+        'result_table': result_table,
+        'centroids': centroids_df,
+        'silhouette': best_score,
+        'method': method
+    }
+out = cluster_countries(
+    dfs_dict=dfs,
+    countries=countries,
+    method='latest',  # oppure 'mean'
+    k_min=2,
+    k_max=6,
+    plot=True
+)
+print("\nRisultati per paese:")
+print(out['result_table'])
