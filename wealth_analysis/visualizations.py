@@ -128,8 +128,6 @@ def melt_indicator(df, indicator_name):
 def animate_indicator(df_long, indicator_name, cmap='viridis', save=False):
     years = sorted(df_long['year'].unique())
     vmin, vmax = df_long[indicator_name].min(), df_long[indicator_name].max()
-
-    # Setup figura e mappa
     fig = plt.figure(figsize=(12,6))
     ax = plt.axes(projection=ccrs.PlateCarree())
     ax.set_global()
@@ -137,37 +135,24 @@ def animate_indicator(df_long, indicator_name, cmap='viridis', save=False):
     ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
     ax.add_feature(cfeature.BORDERS, linestyle=':')
     ax.set_title(f"{indicator_name}", fontsize=14)
-
-    # Normalizzatore per i colori
     cmap_obj = plt.cm.get_cmap(cmap)
     norm = plt.Normalize(vmin=vmin, vmax=vmax)
-
-    # 🔹 Crea i punti iniziali (vuoti)
     scatters = {}
     for c, (lon, lat) in coords.items():
         scatters[c] = ax.scatter(lon, lat, color='gray', s=200, edgecolor='k', transform=ccrs.PlateCarree())
-
-    # 🔹 Crea UNA SOLA colorbar fissa
     sm = plt.cm.ScalarMappable(cmap=cmap_obj, norm=norm)
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax, orientation='vertical', fraction=0.046, pad=0.04)
     cbar.set_label(indicator_name)
-
-    # 🔹 Funzione di aggiornamento
     def update(year):
         ax.set_title(f"{indicator_name} – anno {year}", fontsize=14)
         df_year = df_long[df_long['year'] == year]
-
         for _, row in df_year.iterrows():
             val = row[indicator_name]
             color = cmap_obj(norm(val))
             scatters[row['country']].set_color(color)
-
         return scatters.values()
-
-    # Crea l’animazione
     anim = FuncAnimation(fig, update, frames=years, blit=False, repeat=False)
-
     if save:
         anim.save(f"{indicator_name.replace(' ', '_')}.gif", writer='pillow', fps=2)
     else:
