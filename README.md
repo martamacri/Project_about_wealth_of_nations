@@ -70,24 +70,11 @@ Analisi:
 +
 -regressione lineare --> Life_expectancy ~ GDP_per_capita + Health_expenditure + Infant_mortality --> scatter plot della regressione OK
 -creare un indice sintetico di benessere che riassume tutti gli indici di benessere (aspettativa di vita, spesa sanitaria, mortalità infantile OK
--cluster analisis: raggruppa i paesi in base ai loro indicatori economici e sanitari e vedi se i gruppi sono paragonabili a quelli che 'si conoscono già' che potrebbero non essere uguali a quelli territoriali
+-cluster analisis: raggruppa i paesi in base ai loro indicatori economici e sanitari (Commento: vedi se i gruppi sono paragonabili a quelli che 'si conoscono già' che potrebbero non essere uguali a quelli territoriali) OK
 
 Visualizzazioni globali: --> si possono animare per vedere l'evoluzione?
 -grafici vari indicatore per indicatore --> andamento nel tempo dei vari indicatori (linee per paese e media per continente) --> grafico linee OK
 -correlazione tra il pil pro capite e l'aspettativa di vita cambia nel tempo? per ogni paese (serie temporale) OK
--Mappa modiale che rappresenta la crescita annuale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
--Mappa modiale che rappresenta il pil generale + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
--Mappa modiale che rappresenta l'aspettativa di vita + mappa che confronta le regioni (Europa vs America vs Africa) + mappa per regione che confronta i paesi al suo interno perchè non tutti i paesi crescono allo stesso modo
--analisi multidimensionale: bubble chart x=pil pro capite, y=aspettativa di vita, dimension=numero di persone, colore= continente, animazione nel tempo
--linee di divergenza --> differenza di un indicatore tra due anni per ogni paese (1995 vs 2015)
-
-+
-Nuovo documento di codice:
-puoi fare delle analisi singole per paese: esempio Italia
--crei dataset Italia
--trend temporali per ogni indicatore
--matrice di correlazione tra tutti gli indicatori facendo la media di tutti gli anni per ogni indicatore
--effetti crisi economica 2008
--effetti pandemia
--indice unico di benessere
--Grafici line plot, scatter e heatmap
+-Mappa mondiale che rappresenta la crescita annuale OK
+-Mappa mondiale che rappresenta il pil generale OK
+-Mappa mondiale che rappresenta l'aspettativa di vita OK
