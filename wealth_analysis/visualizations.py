@@ -2,6 +2,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+from matplotlib.animation import FuncAnimation
+import warnings
+warnings.filterwarnings("ignore")
 
 df1 = pd.read_csv('data/gdp_per_capita_1995_2024.csv')
 df2 = pd.read_csv('data/gdp_1995_2024.csv')
@@ -100,3 +105,76 @@ plt.ylabel("Pearson's correlation")
 plt.legend()
 plt.grid(True)
 plt.show()
+
+# mappe mondiali crescita annuale (crescita popolazione, pil e aspettativa di vita)
+coords = {
+    'ITA': (12.5, 42.8), 'ESP': (-3.7, 40.4), 'DEU': (10.5, 51.2), 'SWE': (18.0, 59.3),
+    'USA': (-98.0, 39.8), 'CAN': (-106.3, 56.1), 'BRA': (-51.9, -14.2), 
+    'CHL': (-70.7, -33.4), 'ZAF': (24.7, -29.0), 'NGA': (8.7, 9.1)
+}
+def melt_indicator(df, indicator_name):
+    df_copy = df.copy()
+    if not df_copy.index.astype(str).str.startswith('YR').any():
+        year_col = [c for c in df_copy.columns if 'YR' in str(c).upper()]
+        if year_col:
+            df_copy = df_copy.set_index(year_col[0])
+    df_copy.index = df_copy.index.astype(str).str.replace('YR','').astype(int)
+    df_copy = df_copy.loc[:, df_copy.columns.str.fullmatch(r'[A-Z]{3}')]
+    df_long = df_copy.rename_axis('year').reset_index().melt(
+        id_vars='year', var_name='country', value_name=indicator_name
+    )
+    df_long[indicator_name] = pd.to_numeric(df_long[indicator_name], errors='coerce')
+    return df_long
+def animate_indicator(df_long, indicator_name, cmap='viridis', save=False):
+    years = sorted(df_long['year'].unique())
+    vmin, vmax = df_long[indicator_name].min(), df_long[indicator_name].max()
+
+    # Setup figura e mappa
+    fig = plt.figure(figsize=(12,6))
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    ax.set_global()
+    ax.add_feature(cfeature.LAND, facecolor='lightgray')
+    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.set_title(f"{indicator_name}", fontsize=14)
+
+    # Normalizzatore per i colori
+    cmap_obj = plt.cm.get_cmap(cmap)
+    norm = plt.Normalize(vmin=vmin, vmax=vmax)
+
+    # 🔹 Crea i punti iniziali (vuoti)
+    scatters = {}
+    for c, (lon, lat) in coords.items():
+        scatters[c] = ax.scatter(lon, lat, color='gray', s=200, edgecolor='k', transform=ccrs.PlateCarree())
+
+    # 🔹 Crea UNA SOLA colorbar fissa
+    sm = plt.cm.ScalarMappable(cmap=cmap_obj, norm=norm)
+    sm.set_array([])
+    cbar = plt.colorbar(sm, ax=ax, orientation='vertical', fraction=0.046, pad=0.04)
+    cbar.set_label(indicator_name)
+
+    # 🔹 Funzione di aggiornamento
+    def update(year):
+        ax.set_title(f"{indicator_name} – anno {year}", fontsize=14)
+        df_year = df_long[df_long['year'] == year]
+
+        for _, row in df_year.iterrows():
+            val = row[indicator_name]
+            color = cmap_obj(norm(val))
+            scatters[row['country']].set_color(color)
+
+        return scatters.values()
+
+    # Crea l’animazione
+    anim = FuncAnimation(fig, update, frames=years, blit=False, repeat=False)
+
+    if save:
+        anim.save(f"{indicator_name.replace(' ', '_')}.gif", writer='pillow', fps=2)
+    else:
+        plt.show()
+ind_pil = melt_indicator(df2, 'GDP')
+ind_life = melt_indicator(df3, 'Life expectancy')
+ind_growth = melt_indicator(df7, 'Population growth')
+animate_indicator(ind_pil, 'GDP', cmap='plasma')
+animate_indicator(ind_life, 'Life expectancy', cmap='viridis')
+animate_indicator(ind_growth, 'Population growth', cmap='coolwarm')
