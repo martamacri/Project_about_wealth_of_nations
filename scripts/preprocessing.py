@@ -1,4 +1,5 @@
-# Pulizia e trasformazioni dei dati
+"""Pulizia e trasformazioni dei dati
+"""
 import pandas as pd
 
 # Indicator 1: gdp per capita
@@ -22,7 +23,7 @@ print(df3.info()) #sono tutti numeri ma ci sono valori mancanti
 print(df3.describe()) #statistiche descrittive
 # c'è una riga mancante
 row_missing_count = df3.isnull().any(axis=1).sum()
-print(row_missing_count) #si ne manca una 
+print(row_missing_count) #si ne manca una
 row = df3[df3.isnull().any(axis=1)]
 print(row) # non ho valori per il 2024
 df3_clean = df3.dropna()
@@ -50,7 +51,7 @@ print(rows_with_missing)
 print(df4_clean.head())
 # vediamo se vale la pena tenere i dati del 2023
 rows_with_missing = df4_clean[df4_clean.isnull().any(axis=1)]
-print(rows_with_missing) # non ho brasile, spagna, nigeria, stati uniti e sudafrica 
+print(rows_with_missing) # non ho brasile, spagna, nigeria, stati uniti e sudafrica
 df4_clean = df4_clean[df4_clean['Year'] != 'YR2023']
 print(df4_clean.tail())
 df4_clean.to_csv('health_expenditure_2000_2022.csv', index=False)
