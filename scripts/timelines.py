@@ -23,7 +23,7 @@ df3_clean = prepare_df(df3)
 df5_clean = prepare_df(df5)
 df6_clean = prepare_df(df6)
 
-# Funzione per grafici
+# Funzione per grafici nel tempo
 def plot_indicator(df, title):
     """
     grafici
