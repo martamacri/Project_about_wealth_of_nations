@@ -6,6 +6,8 @@ You could analyze how indicators like GDP per capita relate to life expectancy, 
 Create compelling visualizations, such as time-series charts or global maps, to tell a story about global health and economics. 
 The goal is to build an analytical project that reveals patterns in how nations thrive. 
 
+il primo codice da visionare è all'interno della cartella download data, separata dal resto degli script così non vengono scaricati troppi file csv all'interno della repository di github.
+per prima cosa quindi devi runnare il code 'data loader' poi 'preprocessing'. la motivazione viene spiegata in seguito:
 come installare:
 python -m pip install wbgapi --> nel terminale: ci serve la libreria wbgabi dove all'interno ci sono i dati
 importi la libreria nel codice data_loader
@@ -51,7 +53,6 @@ ANALISI DI CORRELAZIONE + TREND TEMPORALI + CONFRONTI GEOGRAFICI
 ## Data analysis socio-economica
 
 Analisi:
--Analisi generali: describe nel preprocesso (media, varianza, ...) OK
 
 -Pil pro capite nel tempo OK
 -Aspettativa di vita nel tempo OK
@@ -64,7 +65,6 @@ Analisi:
 -Pil pro capite vs spesa sanitaria pro capite OK
 -Pil pro capite vs tassi di mortalità infantile OK
 -Spesa sanitaria pro capite vs mortalità infantile --> più è alta, meno bambini muoiono? OK
-
 -cambia nel tempo questa correlazione? (serie temporale dei paesi) OK
 
 +
@@ -74,7 +74,8 @@ Analisi:
 
 Visualizzazioni globali: --> si possono animare per vedere l'evoluzione?
 -grafici vari indicatore per indicatore --> andamento nel tempo dei vari indicatori (linee per paese e media per continente) --> grafico linee OK
--correlazione tra il pil pro capite e l'aspettativa di vita cambia nel tempo? per ogni paese (serie temporale) OK
 -Mappa mondiale che rappresenta la crescita annuale OK
 -Mappa mondiale che rappresenta il pil generale OK
 -Mappa mondiale che rappresenta l'aspettativa di vita OK
+
+tutte queste analisi sono create all'interno di funzioni nella cartella script. per vedere l'output invece devi utilizzare il codice python chiamato 'main' non all'interno di quella cartella.
