@@ -2,30 +2,9 @@
 """
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib.animation import FuncAnimation
-from formatting import prepare_df
-from correlations import compute_rolling_correlation
-
-sns.set(style="whitegrid")
-
-df1 = pd.read_csv('data/gdp_per_capita_1995_2024.csv')
-df2 = pd.read_csv('data/gdp_1995_2024.csv')
-df3 = pd.read_csv('data/life_expectacy_1995_2023.csv')
-df4 = pd.read_csv('data/health_expenditure_2000_2022.csv')
-df5 = pd.read_csv('data/infant_mortality_1995_2023.csv')
-df6 = pd.read_csv('data/unemployment_1995_2024.csv')
-df7 = pd.read_csv('data/population_growth_1995_2024.csv')
-
-df1_clean = prepare_df(df1)
-df2_clean = prepare_df(df2)
-df3_clean = prepare_df(df3)
-df4_clean = prepare_df(df4)
-df5_clean = prepare_df(df5)
-df6_clean = prepare_df(df6)
-df7_clean = prepare_df(df7)
 
 # Funzione per grafici nel tempo
 def plot_indicator(df, title):
@@ -40,13 +19,6 @@ def plot_indicator(df, title):
     plt.title(title)
     plt.legend()
     plt.show()
-plot_indicator(df1_clean, 'Evolution of GDP per capita over time by country')
-plot_indicator(df2_clean, 'Evolution of GDP over time by country')
-plot_indicator(df3_clean, 'Evolution of life expectancy over time by country')
-plot_indicator(df4_clean, 'Evolution of health expenditure over time by country')
-plot_indicator(df5_clean, 'Evolution of infant mortality over time by country')
-plot_indicator(df6_clean, 'Evolution of unemployment over time by country')
-plot_indicator(df7_clean, 'Evolution of population growth over time by country')
 
 # Andamento nel tempo dei vari indicatori per continente
 continents_dict = {
@@ -72,31 +44,6 @@ def plot_by_continent(df, title):
     plt.title(title)
     plt.legend(title='Continents')
     plt.show()
-plot_by_continent(df1_clean, 'Evolution of GDP per capita over time by continent')
-plot_by_continent(df2_clean, 'Evolution of GDP over time by continent')
-plot_by_continent(df3_clean, 'Evolution of life expectancy over time by continent')
-plot_by_continent(df4_clean, 'Evolution of health expenditure over time by continent')
-plot_by_continent(df5_clean, 'Evolution of infant mortality over time by continent')
-plot_by_continent(df6_clean, 'Evolution of unemployment over time by continent')
-plot_by_continent(df7_clean, 'Evolution of population growth over time by continent')
-
-# La correlazione tra il pil pro capite e l'aspettativa di vita cambia nel tempo?
-# per ogni paese (serie temporale)
-pil = prepare_df(df1)
-life = prepare_df(df3)
-# Correlazione mobile tra PIL pro capite e aspettativa di vita
-WINDOW = 15
-rolling_corr = compute_rolling_correlation(pil, life, window=WINDOW)
-# Plot della correlazione mobile
-plt.figure(figsize=(14, 8))
-for country in rolling_corr.columns:
-    plt.plot(rolling_corr.index, rolling_corr[country], label=country)
-plt.title(f"Rolling correlation ({WINDOW} years) between GDP per capita and life expectancy")
-plt.xlabel("Year")
-plt.ylabel("Pearson's correlation")
-plt.legend()
-plt.grid(True)
-plt.show()
 
 # mappe mondiali crescita annuale (crescita popolazione, pil e aspettativa di vita)
 coords = {
@@ -162,9 +109,3 @@ def animate_indicator(df_long, indicator_name, cmap='viridis', save=False):
         anim.save(f"{indicator_name.replace(' ', '_')}.gif", writer='pillow', fps=2)
     else:
         plt.show()
-ind_pil = melt_indicator(df2, 'GDP')
-ind_life = melt_indicator(df3, 'Life expectancy')
-ind_growth = melt_indicator(df7, 'Population growth')
-animate_indicator(ind_pil, 'GDP', cmap='plasma')
-animate_indicator(ind_life, 'Life expectancy', cmap='viridis')
-animate_indicator(ind_growth, 'Population growth', cmap='coolwarm')
