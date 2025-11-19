@@ -1,5 +1,5 @@
 """
-main code
+Main code
 """
 import sys
 import os
@@ -36,19 +36,19 @@ infant_mort = prepare_df(df5)
 unemp = prepare_df(df6)
 pop = prepare_df(df7)
 
-# evolution over time by country
+# Evolution over time by country
 plot_indicator(gdp_pc, 'Evolution of GDP per capita over time by country')
 plot_indicator(life, 'Evolution of life expectancy over time by country')
 plot_indicator(unemp, 'Evolution of unemployment over time by country')
 plot_indicator(infant_mort, 'Evolution of infant mortality over time by country')
 
-# evolution over time by continent
+# Evolution over time by continent
 plot_by_continent(gdp_pc, 'Evolution of GDP per capita over time by continent')
 plot_by_continent(life, 'Evolution of life expectancy over time by continent')
 plot_by_continent(unemp, 'Evolution of unemployment over time by continent')
 plot_by_continent(infant_mort, 'Evolution of infant mortality over time by continent')
 
-# pre post 2008
+# Pre-post 2008
 gdp_per_capita_mean = mean_pre_post(gdp_pc)
 life_expectancy_mean = mean_pre_post(life)
 unemployment_mean = mean_pre_post(unemp)
@@ -62,7 +62,7 @@ print(unemployment_mean)
 print("\nInfant mortality:")
 print(infant_mortality_mean)
 
-# Calcolo delle correlazioni
+# Calculation of correlations
 comparisons = [
     ("GDP per capita", gdp_pc, "Life expectancy", life),
     ("Unemployment", unemp, "Life expectancy", life),
@@ -76,11 +76,11 @@ corr_df_list = [compute_country_correlations(df_x, df_y, name_x, name_y)
 corr_df = pd.concat(corr_df_list, ignore_index=True)
 print(corr_df)
 
-# Correlazione mobile tra PIL pro capite e aspettativa di vita
+# Mobile correlation between GDP per capita and life expectancy
 WINDOW = 15
 rolling_corr = compute_rolling_correlation(gdp_pc, life, window=WINDOW)
 
-# Plot della correlazione mobile
+# Mobile correlation plot
 plt.figure(figsize=(14, 8))
 for country in rolling_corr.columns:
     plt.plot(rolling_corr.index, rolling_corr[country], label=country)
@@ -91,15 +91,15 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-# regressione
+# Linear regression
 model_df, data_df = regression_life_expectancy(gdp_pc, life, health, infant_mort)
 print(model_df.summary())
 
-# wellness indicator
-# Calcolo dell'indice
+# Wellness indicator
+# Calculation of the index
 wellbeing_index, countries = compute_wellbeing_index(life, health, infant_mort)
 
-# Evoluzione media nel tempo
+# Average evolution over time
 plt.figure(figsize=(12, 6))
 wellbeing_index.mean(axis=1).plot()
 plt.title("Summary index of average well-being over time")
@@ -108,13 +108,13 @@ plt.ylabel("Well-being index")
 plt.grid(True)
 plt.show()
 
-# Classifica dei paesi per indice medio
+# Ranking of countries by average index
 mean_wellbeing = wellbeing_index.mean(axis=0)
 rank = mean_wellbeing.sort_values(ascending=False)
 print("Ranking of countries by average well-being index:")
 print(rank)
 
-# Confronto con PIL medio
+# Comparison with average GDP per capita
 common_years = wellbeing_index.index.intersection(gdp_pc.index)
 gdp_mean = gdp_pc.loc[common_years, countries].mean()
 plt.figure(figsize=(10, 6))
@@ -127,11 +127,11 @@ plt.title("Relationship between GDP per capita and well-being index")
 plt.grid(True)
 plt.show()
 
-# Correlazione
+# Correlation
 corr = gdp_mean.corr(mean_wellbeing)
 print(f"Pearson correlation between average GDP per capita and well-being index: {corr:.3f}")
 
-# cluster analysis
+# Cluster analysis
 dfs = {
     'GDP_per_capita': df1,
     'GDP': df2,
@@ -154,7 +154,7 @@ results = cluster_countries(
 print("\nRisultati per paese:")
 print(results['result_table'])
 
-# visualizations
+# Visualizations
 ind_pil = melt_indicator(df2, 'GDP')
 ind_life = melt_indicator(df3, 'Life expectancy')
 ind_growth = melt_indicator(df7, 'Population growth')
