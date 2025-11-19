@@ -1,1 +1,16 @@
+Ignore Python compiled files and folders
 
+Python bytecode cache
+__pycache__/
+*.pyc
+
+Virtual environments
+venv/
+env/
+.venv/
+
+Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+Streamlit cache
+.streamlit/
