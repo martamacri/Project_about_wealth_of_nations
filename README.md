@@ -53,7 +53,7 @@ The first code used is 'data_loader', which downloads the data from the 'wbgapi'
 Unfortunately, the initial idea was to have all the data for all the indicators in a single dataset, but this was not possible because there would be too much data and the code would generate an error.
 When the 'data_loader' code is run, 7 CSV files are created for the 7 indicators, containing the data for the 10 countries and 30 years considered.
 
-Before moving on to the actual analyses, we need to run the “preprocessing” code, which includes general analyses of the individual datasets and the related cleaning, useful for organising the data in a way that can be used for the following analyses.
+Before moving on to the actual analyses, we need to run the 'preprocessing' code, which includes general analyses of the individual datasets and the related cleaning, useful for organising the data in a way that can be used for the following analyses.
 With this process, we note that:
 - The 'Life expectancy' dataset has 1 row with missing values: there are no values for 2024, so it is deleted from this dataset.
 - The 'Health expenditure' dataset has seven rows with missing values: there are no values from 1995 to 1999 and for 2024, while the values for 2023 are only available for some countries (five out of ten). The 6 rows without data are deleted immediately, but for 2023, I understand if it makes sense to keep them. In the end, the 2023 is also deleted because for the analyses that will be carried out, it does not make sense to attempt to impute the missing values.
