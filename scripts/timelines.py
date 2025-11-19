@@ -1,13 +1,13 @@
 """
-pil pro capite, aspettativa di vita, disoccupazione, mortalità infantile nel tempo
+Per capita GDP, life expectancy, unemployment, infant mortality over time
 """
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Funzione per grafici nel tempo
+# Function for graphs over time
 def plot_indicator(df, title):
     """
-    grafici
+    Graphs over time
     """
     plt.figure(figsize=(15, 8))
     for paese in df.columns:
@@ -18,12 +18,12 @@ def plot_indicator(df, title):
     plt.legend()
     plt.show()
 
-# Funzione confronto pre e post crisi economica del 2008
+# Comparison of the situation before and after the 2008 economic crisis
 def mean_pre_post(df):
     """
-    confronto
+    Comparison by years
     """
-    df.index = pd.to_numeric(df.index, errors='coerce')  # forza indice numerico
+    df.index = pd.to_numeric(df.index, errors='coerce')
     df_data = df.loc[(df.index >= 2000) & (df.index <= 2019)]
     pre = df_data.loc[(df_data.index >= 2000) & (df_data.index <= 2007)].mean()
     post = df_data.loc[(df_data.index >= 2009) & (df_data.index <= 2019)].mean()
