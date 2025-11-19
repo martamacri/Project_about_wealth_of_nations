@@ -1,4 +1,5 @@
-"""Funzioni per grafici e mappe
+"""
+Functions for graphs and maps
 """
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,10 +7,10 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib.animation import FuncAnimation
 
-# Funzione per grafici nel tempo
+# Function for graphs over time
 def plot_indicator(df, title):
     """
-    grafici
+    Graphs over time
     """
     plt.figure(figsize=(15, 8))
     for paese in df.columns:
@@ -20,16 +21,16 @@ def plot_indicator(df, title):
     plt.legend()
     plt.show()
 
-# Andamento nel tempo dei vari indicatori per continente
+# Trends over time for various indicators by continent
 continents_dict = {
-    'Europa': ['ITA', 'ESP', 'DEU', 'SWE'],
-    'Nord America': ['USA', 'CAN'],
-    'Sud America': ['BRA', 'CHL'],
+    'Europe': ['ITA', 'ESP', 'DEU', 'SWE'],
+    'North America': ['USA', 'CAN'],
+    'South America': ['BRA', 'CHL'],
     'Africa': ['ZAF', 'NGA']
 }
 def plot_by_continent(df, title):
     """
-    grafico per continenti
+    Graph by continent
     """
     df_continent = pd.DataFrame({
         continent: df[countries].mean(axis=1)
@@ -45,16 +46,16 @@ def plot_by_continent(df, title):
     plt.legend(title='Continents')
     plt.show()
 
-# mappe mondiali crescita annuale (crescita popolazione, pil e aspettativa di vita)
+# World maps showing annual growth (population growth, GDP and life expectancy)
 coords = {
     'ITA': (12.5, 42.8), 'ESP': (-3.7, 40.4), 'DEU': (10.5, 51.2), 'SWE': (18.0, 59.3),
     'USA': (-98.0, 39.8), 'CAN': (-106.3, 56.1), 'BRA': (-51.9, -14.2), 
     'CHL': (-70.7, -33.4), 'ZAF': (24.7, -29.0), 'NGA': (8.7, 9.1)
-} #coordinate approssimative dei paesi
+} # Approximate coordinates of countries
 
 def melt_indicator(df, indicator_name):
     """
-    mappe mondiali
+    World maps
     """
     df_copy = df.copy()
     if not df_copy.index.astype(str).str.startswith('YR').any():
@@ -71,7 +72,7 @@ def melt_indicator(df, indicator_name):
 
 def animate_indicator(df_long, indicator_name, cmap='viridis', save=False):
     """
-    animazione
+    Animation
     """
     years = sorted(df_long['year'].unique())
     vmin, vmax = df_long[indicator_name].min(), df_long[indicator_name].max()
