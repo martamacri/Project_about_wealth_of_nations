@@ -1,7 +1,7 @@
 """
-Modulo per eseguire regressioni lineari sulla Life Expectancy
-utilizzando GDP per capita, Health Expenditure e Infant Mortality.
-Produce anche uno scatterplot con regressione lineare per GDP per capita.
+Module for performing linear regressions on life expectancy
+using GDP per capita, health expenditure and infant mortality.
+It also produces a scatterplot with linear regression for GDP per capita.
 """
 
 import pandas as pd
@@ -13,13 +13,13 @@ sns.set(style="whitegrid")
 
 def regression_life_expectancy(pil_df, life_df, health_df, infant_mort_df):
     """
-    Esegue una regressione lineare su Life Expectancy usando:
+    Performs a linear regression on Life Expectancy using:
     - GDP per capita
     - Health Expenditure
     - Infant Mortality
     """
 
-    # Trova paesi e anni comuni
+    # Find common countries and years (not necessary, but to be sure)
     countries = pil_df.columns.intersection(life_df.columns) \
                               .intersection(health_df.columns) \
                               .intersection(infant_mort_df.columns)
@@ -28,7 +28,7 @@ def regression_life_expectancy(pil_df, life_df, health_df, infant_mort_df):
                                .intersection(health_df.index) \
                                .intersection(infant_mort_df.index)
 
-    # Costruisce dataset con righe anno-paese
+    # Builds datasets with year-country rows
     data_rows = []
     for country in countries:
         df_country = pd.DataFrame({
@@ -43,7 +43,7 @@ def regression_life_expectancy(pil_df, life_df, health_df, infant_mort_df):
 
     dataset = pd.concat(data_rows, ignore_index=True).dropna()
 
-    # Regressione lineare
+    # Linear regression
     x = dataset[['GDP_per_capita', 'Health_expenditure', 'Infant_mortality']]
     y = dataset['Life_expectancy']
 
