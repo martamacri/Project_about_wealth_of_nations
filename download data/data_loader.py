@@ -1,19 +1,19 @@
 """
-Modulo per scaricare e gestire dati economici dalla Banca Mondiale.
+Module for downloading and managing economic data from the World Bank
 """
 import wbgapi as wb
 import pandas as pd
 
-# per vedere tutti gli indicatori della libreria
+# To see all indicators in the library
 # for indicator in wb.series.list():
 #    print(indicator['id'], "-", indicator['value'])
-# sono tanti quindi ne scegli solo alcuni
-# per vedere tutti i paesi che ci sono all'interno della libreria
+# There are so many, so just choose a few.
+# To see all the countries in the library.
 # for country in wb.economy.list():
 #    print(country['id'], "-", country['value'])
-# ma sono tanti anche in questo caso ne scegli solo alcuni
+# But there are so many even in this case, choose only a few.
 
-# Scatico i file csv indicatore per indicatore
+# I download the CSV files indicator by indicator.
 
 # Indicator 1: GDP per capita, current US$
 GPD_PC = 'NY.GDP.PCAP.CD'
@@ -25,7 +25,7 @@ df1.index.name = 'Year'
 df1 = df1.apply(pd.to_numeric, errors='coerce')
 print(df1.head())
 df1.to_csv('gdp_per_capita_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: gdp_per_capita_1995_2024.csv")
+print("\nSaved: gdp_per_capita_1995_2024.csv")
 
 # Indicator 2: GDP
 GPD = 'NY.GDP.MKTP.CD'
@@ -37,7 +37,7 @@ df2.index.name = 'Year'
 df2 = df2.apply(pd.to_numeric, errors='coerce')
 print(df2.head())
 df2.to_csv('gdp_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: gdp_1995_2024.csv")
+print("\nSaved: gdp_1995_2024.csv")
 
 # Indicator 3: Life expectancy
 LIFE = 'SP.DYN.LE00.IN'
@@ -49,7 +49,7 @@ df3.index.name = 'Year'
 df3 = df3.apply(pd.to_numeric, errors='coerce')
 print(df3.head())
 df3.to_csv('life_expectacy_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: life_expectacy_1995_2024.csv")
+print("\nSaved: life_expectacy_1995_2024.csv")
 
 # Indicator 4: Health expenditure
 HEALTH = 'SH.XPD.CHEX.PC.CD'
@@ -61,7 +61,7 @@ df4.index.name = 'Year'
 df4 = df4.apply(pd.to_numeric, errors='coerce')
 print(df4.head())
 df4.to_csv('health_expenditure_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: health_expenditure_1995_2024.csv")
+print("\nSaved: health_expenditure_1995_2024.csv")
 
 # Indicator 5: Infant mortality
 INFANT = 'SH.DYN.MORT'
@@ -73,7 +73,7 @@ df5.index.name = 'Year'
 df5 = df5.apply(pd.to_numeric, errors='coerce')
 print(df5.head())
 df5.to_csv('infant_mortality_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: infant_mortality_1995_2024.csv")
+print("\nSaved: infant_mortality_1995_2024.csv")
 
 # Indicator 6: Unemployment
 UNEMP = 'SL.UEM.TOTL.ZS'
@@ -85,7 +85,7 @@ df6.index.name = 'Year'
 df6 = df6.apply(pd.to_numeric, errors='coerce')
 print(df6.head())
 df6.to_csv('unemployment_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: unemployment_1995_2024.csv")
+print("\nSaved: unemployment_1995_2024.csv")
 
 # Indicator 7: Population growth
 POP = 'SP.POP.GROW'
@@ -97,4 +97,4 @@ df7.index.name = 'Year'
 df7 = df7.apply(pd.to_numeric, errors='coerce')
 print(df7.head())
 df7.to_csv('population_growth_1995_2024.csv', float_format='%.2f')
-print("\nSalvato: population_growth_1995_2024.csv")
+print("\nSaved: population_growth_1995_2024.csv")
