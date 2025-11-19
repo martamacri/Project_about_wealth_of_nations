@@ -1,12 +1,12 @@
 """
-correlazioni
+Correlations between indicators
 """
 import pandas as pd
 
-# Funzione per calcolare correlazioni per paese
+# Function to calculate correlations by country
 def compute_country_correlations(df_x, df_y, name_x="X", name_y="Y"):
     """
-    correlazioni totali
+    Total correlations
     """
     results = []
     for countries in df_x.columns.intersection(df_y.columns):
@@ -22,10 +22,10 @@ def compute_country_correlations(df_x, df_y, name_x="X", name_y="Y"):
         })
     return pd.DataFrame(results)
 
-# Funzione per calcolare rolling correlation per tutti i paesi
+# Function to calculate rolling correlation for all countries
 def compute_rolling_correlation(df_x, df_y, window=15):
     """
-    correlazione nel tempo
+    Correlation over time
     """
     rolling = pd.DataFrame(index=df_x.index)
     for countries in df_x.columns.intersection(df_y.columns):
