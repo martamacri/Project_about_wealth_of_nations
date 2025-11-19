@@ -1,5 +1,5 @@
 """
-Cluster analysis generica.
+Cluster analysis
 """
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ sns.set(style="whitegrid")
 
 def build_feature_table(dfs_dict, nations, method='latest', prepare_func=None):
     """
-    Costruisce una tabella con feature per ogni nazione.
+    Builds a table with features for each country
     """
     features = pd.DataFrame(index=nations)
     for feat_name, df in dfs_dict.items():
@@ -38,7 +38,7 @@ def cluster_countries(dfs_dict,
                       plot=True,
                       prepare_func=None):
     """
-    Esegue clustering sui paesi usando feature costruite dai DataFrame.
+    Performs clustering on countries using features constructed from DataFrames
     """
     feats = build_feature_table(dfs_dict, nations, method=method, prepare_func=prepare_func)
     feats_orig = feats.copy()
@@ -58,7 +58,7 @@ def cluster_countries(dfs_dict,
             best_k = k
             best_model = model
     if best_model is None:
-        raise RuntimeError("Nessun clustering valido trovato")
+        raise RuntimeError("No valid clustering found")
     labels = best_model.labels_
     pca = PCA(n_components=2, random_state=random_state)
     x_pca = pca.fit_transform(x_scaled)
@@ -72,7 +72,7 @@ def cluster_countries(dfs_dict,
         sc = plt.scatter(x_pca[:,0], x_pca[:,1], c=labels, cmap='tab10', s=120, edgecolor='k')
         for i, country in enumerate(nations):
             plt.text(x_pca[i,0]+0.02, x_pca[i,1]+0.02, country, fontsize=10)
-        plt.title(f'Clustering paesi (PCA 2D) - k={best_k} silhouette={best_score:.3f}')
+        plt.title(f'Clustering countries (PCA 2D) - k={best_k} silhouette={best_score:.3f}')
         plt.xlabel('PCA 1')
         plt.ylabel('PCA 2')
         plt.grid(alpha=0.2)
