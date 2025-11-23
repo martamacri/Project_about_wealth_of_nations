@@ -84,7 +84,7 @@ The analyses conducted are:
   - Does this correlation change over time? Time series for countries
 * Linear regression: to see how much the variables GDP per capita, health expenditure and infant mortality affect the variable life expectancy. The output consists of the regression coefficients and the scatter plot graph of the regression.
 * Creation of a synthetic well-being index that summarises all well-being indices (life expectancy, healthcare expenditure, infant mortality).
-* CCluster analysis: groups countries according to their economic and health indicators.
+* Cluster analysis: groups countries according to their economic and health indicators.
 * Global visualizations:
   - Various charts:
     - Trends over time for various indicators by country
@@ -95,3 +95,11 @@ The analyses conducted are:
 
 ## Conclusion
 The project provides tools and visualisations to understand how the economy and public health are related over time and space.
+
+A Jupiter notebook has been created in the 'presentation' folder to visualise the codes used with their outputs. In addition, comments have been added to the outputs to achieve the goal of this project.
+
+From the temporal analysis, we can see that per capita GDP has increased in almost all countries over the last 20 years, except in Nigeria and South Africa, where it has remained constant.
+Furthermore, there is a clear difference between the life expectancy of all countries and that of African countries, which, despite having increased in recent years, is still significantly lower than that of other continents.
+South Africa has the highest unemployment rate. The other countries, on the other hand, all remain constant between 5 and 15 per cent.
+Infant mortality per 1,000 live births is between 0 and 25 per thousand in all countries except Nigeria and South Africa. In Nigeria, despite the rate having halved, it still stands at 100 per thousand.
+
