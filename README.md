@@ -103,3 +103,7 @@ Furthermore, there is a clear difference between the life expectancy of all coun
 South Africa has the highest unemployment rate. The other countries, on the other hand, all remain constant between 5 and 15 per cent.
 Infant mortality per 1,000 live births is between 0 and 25 per thousand in all countries except Nigeria and South Africa. In Nigeria, despite the rate having halved, it still stands at 100 per thousand.
 
+The correlations paint a very consistent picture: GDP per capita, health expenditure and health indicators are strongly interconnected. In almost all countries, higher GDP per capita is associated with higher life expectancy, higher health expenditure and lower infant mortality, with often very strong relationships.
+In contrast, unemployment has lower and more variable correlations, indicating that its connection to health is not linear and depends on the specific context. Overall, it is clear that economic development and health investments are associated with better health outcomes.
+
+The linear regression shows that life expectancy increases with per capita GDP and, above all, decreases when infant mortality is high. The model explains the data well, but some effects on individual variables may be confused by the strong correlation between GDP and health expenditure.
