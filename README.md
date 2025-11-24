@@ -107,3 +107,6 @@ The correlations paint a very consistent picture: GDP per capita, health expendi
 In contrast, unemployment has lower and more variable correlations, indicating that its connection to health is not linear and depends on the specific context. Overall, it is clear that economic development and health investments are associated with better health outcomes.
 
 The linear regression shows that life expectancy increases with per capita GDP and, above all, decreases when infant mortality is high. The model explains the data well, but some effects on individual variables may be confused by the strong correlation between GDP and health expenditure.
+
+By creating the well-being index, we note that over the last twenty years, well-being indicators have improved overall, with Brazil and Spain at the highest levels. 
+Furthermore, a comparison with GDP per capita shows that wealth alone cannot explain the differences in well-being between countries: Pearson's correlation (-0.083) confirms the absence of a linear relationship. Well-being therefore depends on factors that are more complex than economic development alone.
