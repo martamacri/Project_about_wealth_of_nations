@@ -113,3 +113,6 @@ Furthermore, a comparison with GDP per capita shows that wealth alone cannot exp
 
 Cluster analysis regroups countries based on economic and social indicators. Most countries, such as Italy, Spain, Germany, Sweden, the United States, Canada, Brazil, Chile, and South Africa, have similar values for GDP, life expectancy, and other indicators, showing comparable general characteristics. Nigeria, on the other hand, stands out for its very low GDP, low life expectancy and high infant mortality, making it very different from the other countries.
 
+Finally, the graphical analysis shows that the GDP of countries has remained stable in recent decades, except for the United States, which has grown significantly. Life expectancy, on the other hand, shows stark disparities: Europe and America above 80 years, but Africa below 65 years. 
+The population growth rate is low or negative in Europe, positive in Africa, and has been increasing in recent years in countries such as Canada. 
+In general, economic and demographic differences between countries remain evident over time.
