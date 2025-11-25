@@ -110,3 +110,6 @@ The linear regression shows that life expectancy increases with per capita GDP a
 
 By creating the well-being index, we note that over the last twenty years, well-being indicators have improved overall, with Brazil and Spain at the highest levels. 
 Furthermore, a comparison with GDP per capita shows that wealth alone cannot explain the differences in well-being between countries: Pearson's correlation (-0.083) confirms the absence of a linear relationship. Well-being therefore depends on factors that are more complex than economic development alone.
+
+Cluster analysis regroups countries based on economic and social indicators. Most countries, such as Italy, Spain, Germany, Sweden, the United States, Canada, Brazil, Chile, and South Africa, have similar values for GDP, life expectancy, and other indicators, showing comparable general characteristics. Nigeria, on the other hand, stands out for its very low GDP, low life expectancy and high infant mortality, making it very different from the other countries.
+
