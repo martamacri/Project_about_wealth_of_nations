@@ -116,3 +116,5 @@ Cluster analysis regroups countries based on economic and social indicators. Mos
 Finally, the graphical analysis shows that the GDP of countries has remained stable in recent decades, except for the United States, which has grown significantly. Life expectancy, on the other hand, shows stark disparities: Europe and America above 80 years, but Africa below 65 years. 
 The population growth rate is low or negative in Europe, positive in Africa, and has been increasing in recent years in countries such as Canada. 
 In general, economic and demographic differences between countries remain evident over time.
+
+Globally, the project highlights how economic development, health investments and demographic dynamics remain deeply connected and how differences between countries, while narrowing in some respects, are still marked and significant.
