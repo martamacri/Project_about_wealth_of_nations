@@ -17,6 +17,12 @@ def regression_life_expectancy(pil_df, life_df, health_df, infant_mort_df):
     - GDP per capita
     - Health Expenditure
     - Infant Mortality
+
+    Combine multiple country-level datasets, align them by country and year,
+    build a panel-style dataset, and fit an OLS regression model where 
+    Life Expectancy is the dependent variable.
+
+    Returns: coefficient, plot
     """
 
     # Find common countries and years (not necessary, but to be sure)
@@ -41,25 +47,25 @@ def regression_life_expectancy(pil_df, life_df, health_df, infant_mort_df):
         })
         data_rows.append(df_country)
 
-    dataset = pd.concat(data_rows, ignore_index=True).dropna()
+    dataset = pd.concat(data_rows, ignore_index=True).dropna() # Concatenate all countries into one panel dataset
 
     # Linear regression
     x = dataset[['GDP_per_capita', 'Health_expenditure', 'Infant_mortality']]
     y = dataset['Life_expectancy']
 
-    x = sm.add_constant(x)
+    x = sm.add_constant(x) # Add constant term for intercept in regression
     model = sm.OLS(y, x).fit()
 
     # Plot
     plt.figure(figsize=(10, 6))
-    sns.scatterplot(
+    sns.scatterplot( # Scatter plot
         x='GDP_per_capita',
         y='Life_expectancy',
         data=dataset,
         hue='Country',
         alpha=0.7
     )
-    sns.regplot(
+    sns.regplot( # Add regression line
         x='GDP_per_capita',
         y='Life_expectancy',
         data=dataset,
