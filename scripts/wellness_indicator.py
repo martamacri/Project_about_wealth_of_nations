@@ -8,7 +8,15 @@ def compute_wellbeing_index(life_df, health_df, infant_df):
     """
     Calculates a summary index of well-being by country and year
     based on life expectancy, healthcare expenditure and infant mortality.
+
+    Compute a composite Well-Being Index by country and year based on:
+    - Life Expectancy (higher = better)
+    - Health Expenditure (higher = better)
+    - Infant Mortality (lower = better, inverted before normalization)
     """
+
+    # Find common countries and years (not necessary, but to be sure)
+    # without this step, I get an error
     countries_df = life_df.columns.intersection(health_df.columns)\
                                .intersection(infant_df.columns)
     common_years_df = life_df.index.intersection(health_df.index)\
@@ -24,6 +32,7 @@ def compute_wellbeing_index(life_df, health_df, infant_df):
     def minmax_normalize(df):
         return (df - df.min()) / (df.max() - df.min())
 
+    # Normalize each component to [0, 1]
     life_norm = minmax_normalize(life_clean)
     health_norm = minmax_normalize(health_clean)
     infant_norm = minmax_normalize(infant_inv)
