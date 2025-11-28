@@ -7,11 +7,20 @@ def prepare_df(df, df0=None):
     - remove empty rows
     - extract the years from the first column and put them as an index
     - if a second dataset df0 is passed, keep only the rows (years) common to both
+
+    Parameters:
+    - df: The main DataFrame to prepare
+    - df0: A second DataFrame to align with df by common years
+
+    Returns:
+    - If df0 is None: returns the cleaned df with years as index
+    - If df0 is provided: returns a tuple of two DataFrames containing only rows with years common to both
     """
-    df = df.dropna(how='all')
+    df = df.dropna(how='all') # Remove rows where all values are NaN
     years = df.iloc[:, 0].astype(str).str.extract(r'(\d+)')[0].astype(int)
+    # Extract year from the first column using regex, convert to integer and keep only other columns
     df_data = df.iloc[:, 1:]
-    df_data.index = years
+    df_data.index = years # Set the extracted years as the index
 
     if df0 is not None:
         # Prepare df0 in the same way (only years as index)
