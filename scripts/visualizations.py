@@ -11,9 +11,11 @@ from matplotlib.animation import FuncAnimation
 def plot_indicator(df, title):
     """
     Graphs over time
+    Plot the values of an indicator over time for multiple countries
+    Create a line plot showing the evolution of values in the DataFrame over the years
     """
     plt.figure(figsize=(15, 8))
-    for paese in df.columns:
+    for paese in df.columns: # Loop over each column
         plt.plot(df.index, df[paese], marker='o', label=paese)
     plt.xlabel('Year')
     plt.ylabel('Value')
@@ -56,6 +58,12 @@ coords = {
 def melt_indicator(df, indicator_name):
     """
     World maps
+    Convert a wide-format indicator DataFrame into a long-format table with columns
+    Returns:
+    A long-format DataFrame with columns:
+    - 'year' (int)
+    - 'country' (str, ISO-3 code)
+    - indicator_name (float)
     """
     df_copy = df.copy()
     if not df_copy.index.astype(str).str.startswith('YR').any():
@@ -63,50 +71,54 @@ def melt_indicator(df, indicator_name):
         if year_col:
             df_copy = df_copy.set_index(year_col[0])
     df_copy.index = df_copy.index.astype(str).str.replace('YR','').astype(int)
-    df_copy = df_copy.loc[:, df_copy.columns.str.fullmatch(r'[A-Z]{3}')]
+    # Convert from wide to long format:
     df_long = df_copy.rename_axis('year').reset_index().melt(
         id_vars='year', var_name='country', value_name=indicator_name
     )
-    df_long[indicator_name] = pd.to_numeric(df_long[indicator_name], errors='coerce')
     return df_long
 
 def animate_indicator(df_long, indicator_name, cmap='viridis', save=False):
     """
-    Animation
+    Create an animated world visualization of an indicator over time.
+    The function takes a long-format DataFrame containing (year, country, value)
+    and generates an animation in which each country is represented as a dot on
+    a world map.
+    The color of each dot changes according to the indicator's value for that year.
+    Displays the animation or saves it as a GIF.
     """
-    years = sorted(df_long['year'].unique())
-    vmin, vmax = df_long[indicator_name].min(), df_long[indicator_name].max()
-    fig = plt.figure(figsize=(12,6))
+    years = sorted(df_long['year'].unique()) # Extract available years
+    vmin, vmax = df_long[indicator_name].min(), df_long[indicator_name].max() # Get min max for normalization
+    fig = plt.figure(figsize=(12,6)) # Prepare the figure and world map
     ax = plt.axes(projection=ccrs.PlateCarree())
     ax.set_global()
-    ax.add_feature(cfeature.LAND, facecolor='lightgray')
+    ax.add_feature(cfeature.LAND, facecolor='lightgray') # Add map features
     ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
     ax.add_feature(cfeature.BORDERS, linestyle=':')
     ax.set_title(f"{indicator_name}", fontsize=14)
-    cmap_obj = plt.cm.get_cmap(cmap)
+    cmap_obj = plt.cm.get_cmap(cmap) # Prepare colormap and normalization
     norm = plt.Normalize(vmin=vmin, vmax=vmax)
-    scatters = {}
+    scatters = {} # Create scatter dots for each country
     for c, (lon, lat) in coords.items():
         scatters[c] = ax.scatter(lon,
                                  lat,
                                  color='gray',
-                                 s=200,
+                                 s=200, # dot's size
                                  edgecolor='k',
                                  transform=ccrs.PlateCarree())
-    sm = plt.cm.ScalarMappable(cmap=cmap_obj, norm=norm)
+    sm = plt.cm.ScalarMappable(cmap=cmap_obj, norm=norm) # Add a colorbar legend
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax, orientation='vertical', fraction=0.046, pad=0.04)
     cbar.set_label(indicator_name)
-    def update(year):
+    def update(year): # Update function executed once per frame (year)
         ax.set_title(f"{indicator_name} – anno {year}", fontsize=14)
         df_year = df_long[df_long['year'] == year]
-        for _, row in df_year.iterrows():
+        for _, row in df_year.iterrows(): # Update each dot's color with the indicator value for the given year
             val = row[indicator_name]
             color = cmap_obj(norm(val))
             scatters[row['country']].set_color(color)
         return scatters.values()
-    anim = FuncAnimation(fig, update, frames=years, blit=False, repeat=False)
-    if save:
+    anim = FuncAnimation(fig, update, frames=years, blit=False, repeat=False) # Create animation
+    if save: # Display the animation
         anim.save(f"{indicator_name.replace(' ', '_')}.gif", writer='pillow', fps=2)
     else:
         plt.show()
