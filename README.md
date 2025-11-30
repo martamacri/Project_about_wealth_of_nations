@@ -22,7 +22,7 @@ In summary, the goal is to build an analysis that highlights the patterns throug
 To carry out the project, Visual Studio Code (VS Code) was used. For this reason, the codes and explanations provided in this file were based on the functionality of this software.
 
 Organisation of the project:
-Project_about_wealth_of_nations/
+```Project_about_wealth_of_nations/
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
@@ -49,7 +49,7 @@ Project_about_wealth_of_nations/
 ├── main.py
 └── presentation/
     ├── project_analysis.ipynb
-    └── app.py
+    └── app.py```
 
 ## Data
 The data used in the project comes from the Python library 'wbgapi'. The library is built using data from World Bank Open Data, a database that provides free access to data on global development.
