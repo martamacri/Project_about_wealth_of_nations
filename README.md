@@ -21,6 +21,36 @@ In addition, effective visualisations, such as time series graphs or global maps
 In summary, the goal is to build an analysis that highlights the patterns through which nations prosper.
 To carry out the project, Visual Studio Code (VS Code) was used. For this reason, the codes and explanations provided in this file were based on the functionality of this software.
 
+Organisation of the project:
+Project_about_wealth_of_nations/
+├── .gitignore
+├── README.md
+├── requirements.txt
+├── download data/
+│   ├── data_loader.py
+│   └── preprocessing.py
+├── data/
+│   ├── gdp_per_capita_1995_2024.csv
+│   ├── gdp_1995_2024.csv
+│   ├── life_espectacy_1995_2023.csv
+│   ├── health_expenditure_2000_2022.csv
+│   ├── infant_mortality_1995_2023.csv
+│   ├── unemployment_1995_2024.csv
+│   └── population_growth_1995_2024.csv
+├── scripts/
+│   ├── __init__.py
+│   ├── formatting.py
+│   ├── timelines.py
+│   ├── correlations.py
+│   ├── regression.py
+│   ├── wellness_indicator.py
+│   ├── cluster_analysis.py
+│   └── visualizations.py
+├── main.py
+└── presentation/
+    ├── project_analysis.ipynb
+    └── app.py
+
 ## Data
 The data used in the project comes from the Python library 'wbgapi'. The library is built using data from World Bank Open Data, a database that provides free access to data on global development.
 To use this library, before using the project scripts, you must install it in the terminal of VS Code using the following code:
