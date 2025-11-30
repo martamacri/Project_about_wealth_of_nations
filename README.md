@@ -49,8 +49,7 @@ Project_about_wealth_of_nations/
 │   └── visualizations.py
 ├── main.py
 └── presentation/
-    ├── project_analysis.ipynb
-    └── app.py
+    └── project_analysis.ipynb
 ```
 
 ## Data
